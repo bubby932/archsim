@@ -48,6 +48,32 @@ pub enum Instruction {
     /// `CMPBC` - `0x0C` - `0000 1100` - Compares B >|=|< C using the ALU
     CMPBC = 0x0C,
 
+    /// `ADDAB` - `0x0D` - `0000 1101` - Adds REG_B8 to REG_A8 and places the result in REG_A8.
+    ADDAB = 0x0D,
+    /// `ADDAC` - `0x0E` - `0000 1110` - Adds REG_C8 to REG_A8 and places the result in REG_A8.
+    ADDAC = 0x0E,
+    /// `ADDBC` - `0x0F` - `0000 1111` - Adds REG_C8 to REG_B8 and places the result in REG_B8.
+    ADDBC = 0x0F,
+    /// `ADDBA` - `0x10` - `0001 0000` - Adds REG_A8 to REG_B8 and places the result in REG_B8.
+    ADDBA = 0x10,
+    /// `ADDCA` - `0x11` - `0001 0001` - Adds REG_A8 to REG_C8 and places the result in REG_C8.
+    ADDCA = 0x11,
+    /// `ADDCB` - `0x12` - `0001 0010` - Adds REG_B8 to REG_C8 and places the result in REG_C8.
+    ADDCB = 0x12,
+
+    /// `SUBAB` - `0x13` - `0001 0011` - Subtracts REG_B8 from REG_A8 and places the result in REG_A8.
+    SUBAB = 0x13,
+    /// `SUBAC` - `0x14` - `0001 0100` - Subtracts REG_C8 from REG_A8 and places the result in REG_A8.
+    SUBAC = 0x14,
+    /// `SUBBA` - `0x15` - `0001 0101` - Subtracts REG_A8 from REG_B8 and places the result in REG_B8.
+    SUBBA = 0x15,
+    /// `SUBBC` - `0x16` - `0001 0110` - Subtracts REG_C8 from REG_B8 and places the result in REG_B8.
+    SUBBC = 0x16,
+    /// `SUBCA` - `0x17` - `0001 0111` - Subtracts REG_A8 from REG_C8 and places the result in REG_C8.
+    SUBCA = 0x17,
+    /// `SUBCB` - `0x18` - `0001 1000` - Subtracts REG_B8 from REG_C8 and places the result in REG_C8.
+    SUBCB = 0x18,
+
     /// `DUMP` - `0xFF` - `1111 1111` - EMULATOR ONLY - Prints the value of all registers.
     DUMP = 0xFF,
 }
@@ -71,6 +97,20 @@ impl From<u8> for Instruction {
             0x0A => Self::CMPAB,
             0x0B => Self::CMPAC,
             0x0C => Self::CMPBC,
+
+            0x0D => Self::ADDAB,
+            0x0E => Self::ADDAC,
+            0x0F => Self::ADDBC,
+            0x10 => Self::ADDBA,
+            0x11 => Self::ADDCA,
+            0x12 => Self::ADDCB,
+
+            0x13 => Self::SUBAB,
+            0x14 => Self::SUBAC,
+            0x15 => Self::SUBBA,
+            0x16 => Self::SUBBC,
+            0x17 => Self::SUBCA,
+            0x18 => Self::SUBCB,
 
             0xFF => Self::DUMP,
             _ => Self::DUMP

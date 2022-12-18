@@ -9,8 +9,8 @@ pub struct Machine {
     pub reg_b8 : u8,
     /// Represented as REG_C8 in instructions, also referred to as the Counter.
     pub reg_c8 : u8,
-    /// Represented as REG_I16 in instructions, also referred to as the Instruction Pointer.
-    pub reg_ic : u16,
+    /// Represented as REG_IC in instructions, also referred to as the Instruction Pointer.
+    pub reg_ic : u8,
     /// Represented as REG_FLAGS in instructions, also referred to as the Flags Register.
     pub reg_flags : u8,
     /// The entire working memory of the system. 65,535 bytes or 65.5KB if you prefer.
@@ -89,6 +89,20 @@ impl Machine {
                     self.set_flag(Flags::CmpEqual, self.reg_b8 == self.reg_c8);
                     self.set_flag(Flags::CmpLess, self.reg_b8 < self.reg_c8);
                 },
+                
+                Instruction::ADDAB => self.reg_a8 += self.reg_b8,
+                Instruction::ADDAC => self.reg_a8 += self.reg_c8,
+                Instruction::ADDBC => self.reg_b8 += self.reg_c8,
+                Instruction::ADDBA => self.reg_b8 += self.reg_a8,
+                Instruction::ADDCA => self.reg_c8 += self.reg_a8,
+                Instruction::ADDCB => self.reg_c8 += self.reg_b8,
+
+                Instruction::SUBAB => self.reg_a8 -= self.reg_b8,
+                Instruction::SUBAC => self.reg_a8 -= self.reg_c8,
+                Instruction::SUBBA => self.reg_b8 -= self.reg_a8,
+                Instruction::SUBBC => self.reg_b8 -= self.reg_c8,
+                Instruction::SUBCA => self.reg_c8 -= self.reg_a8,
+                Instruction::SUBCB => self.reg_c8 -= self.reg_b8,
 
                 Instruction::DUMP => {
                     println!("{self}");
